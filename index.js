@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+app.use(express.static('build'))
 app.use(cors())
 
 app.use(bodyParser.json())
@@ -27,10 +28,6 @@ let notes = [
     important: true,
   },
 ]
-
-app.get('/', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
 
 app.get('/notes', (req, res) => {
   res.json(notes)
