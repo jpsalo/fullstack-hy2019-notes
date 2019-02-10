@@ -32,11 +32,11 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (request, response, next) => {
   const body = request.body
 
-	const note = new Note({
-		content: body.content,
-		important: body.important || false,
-		date: new Date(),
-	})
+  const note = new Note({
+    content: body.content,
+    important: body.important || false,
+    date: new Date(),
+  })
 
   note.save()
     .then(savedNote => savedNote.toJSON())
@@ -75,7 +75,7 @@ app.put('/api/notes/:id', (request, response, next) => {
 
 app.delete('/api/notes/:id', (request, response, next) => {
   Note.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -89,7 +89,7 @@ app.use(unknownEndpoint)
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
 
-  if (error.name === 'CastError' && error.kind == 'ObjectId') {
+  if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
