@@ -101,8 +101,6 @@ test('a note can be deleted', async () => {
   expect(contents).not.toContain(noteToDelete.content)
 })
 
-
-
 afterAll(() => {
   mongoose.connection.close()
 })
